@@ -2,6 +2,7 @@ import Link from "next/link";
 import MyHead from "../components/MyHead";
 import { dataSingleCost } from "@/pages/api/singleCost";
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 export default function Home() {
   const [input, setInput] = useState({
@@ -10,6 +11,7 @@ export default function Home() {
   })
   const [from, setFrom] = useState(1000);
   const [to, setTo] = useState(1000);
+  const [sort, setsort] = useState(false)
 
   const handleSearch = () => {
     setFrom(input.curr)
@@ -61,10 +63,15 @@ export default function Home() {
               />
             </div>
           </div>
-          <button onClick={handleSearch} className="btn mt-2">
-            <img className="w-5" src="svg/search.svg" alt="" />
-            Search
-          </button>
+        <div className="flex gap-4">
+            <button onClick={handleSearch} className="btn mt-2">
+              <img className="w-5" src="svg/search.svg" alt="" />
+              Search
+            </button>
+            <button onClick={()=> setsort(!sort)} className={`btn mt-2 ${!sort&&"btn-ghost"}`}>
+              <img className="w-5" src="svg/sort.svg" alt="" />
+            </button>
+        </div>
         </section>
 
         {/* NOTE Table */}
@@ -81,40 +88,76 @@ export default function Home() {
             </thead>
             <tbody>
               {/* row */}
-              {dataSingleCost
+              {sort?dataSingleCost
+                .filter(
+                  (filtered) => from <= filtered.day && filtered.day <= to
+                ).sort((a,b)=> a.cost - b.cost)
+                .map((item) => {
+                  const bg = (cost) => {
+                    if(cost<200){
+                      return "bg-lime-400"
+                    }
+                    if(cost<220){
+                      return "bg-lime-500"
+                    }
+                    if(cost<260){
+                      return "bg-lime-600"
+                    }
+                    if(cost<300){
+                      return "bg-red-700"
+                    }
+                    if(cost<340){
+                      return "bg-red-800"
+                    }
+                    if(cost<380){
+                      return "bg-red-900"
+                    }
+                    if(cost>380){
+                        return "bg-red-700"
+                    }
+                  }
+                  return(
+                    <tr key={item.day} className={`text-black ${bg(item.cost)} text-center hover cursor-pointer`}>
+                    <th>{item.day}</th>
+                    <td>{item.skip}</td>
+                    <th>{Math.floor(item.tickets)}</th>
+                    <th >{Math.floor(item.cost)}</th>
+                  </tr>
+                  )
+                }):dataSingleCost
                 .filter(
                   (filtered) => from <= filtered.day && filtered.day <= to
                 )
                 .map((item) => {
-                  const color = (cost) => {
+                  const bg = (cost) => {
                     if(cost<200){
-                      return "text-lime-400"
+                      return "bg-lime-400"
                     }
                     if(cost<220){
-                      return "text-lime-500"
+                      return "bg-lime-500"
                     }
                     if(cost<260){
-                      return "text-lime-600"
+                      return "bg-lime-600"
                     }
                     if(cost<300){
-                      return "text-red-700"
+                      return "bg-red-700"
                     }
                     if(cost<340){
-                      return "text-red-800"
+                      return "bg-red-800"
                     }
                     if(cost<380){
-                      return "text-red-900"
+                      return "bg-red-900"
                     }
                     if(cost>380){
-                        return "text-red-700"
+                        return "bg-red-700"
                     }
                   }
                   return(
-                    <tr className="text-black text-center hover cursor-pointer">
+                    <tr key={item.day} className={`text-black ${bg(item.cost)} text-center hover cursor-pointer`}>
                     <th>{item.day}</th>
                     <td>{item.skip}</td>
                     <th>{Math.floor(item.tickets)}</th>
-                    <th className={color(item.cost)}>{Math.floor(item.cost)}</th>
+                    <th>{Math.floor(item.cost)}</th>
                   </tr>
                   )
                 })}
