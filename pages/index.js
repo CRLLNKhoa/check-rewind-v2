@@ -95,25 +95,37 @@ export default function Home() {
                 .map((item) => {
                   const bg = (cost) => {
                     if(cost<200){
-                      return "bg-lime-400"
+                      return "bg-[#6efa75]"
+                    }
+                    if(cost<210){
+                      return "bg-[#8bea4c]"
                     }
                     if(cost<220){
-                      return "bg-lime-500"
+                      return "bg-[#a2da18]"
+                    }
+                    if(cost<230){
+                      return "bg-[#b6c800]"
+                    }
+                    if(cost<240){
+                      return "bg-[#c8b400]"
+                    }
+                    if(cost<250){
+                      return "bg-[#d89f00]"
                     }
                     if(cost<260){
-                      return "bg-lime-600"
+                      return "bg-[#e68700]"
                     }
-                    if(cost<300){
-                      return "bg-red-700"
+                    if(cost<270){
+                      return "bg-[#f16c00]"
                     }
-                    if(cost<340){
-                      return "bg-red-800"
+                    if(cost<280){
+                      return "bg-[#fa4a00]"
                     }
                     if(cost<380){
-                      return "bg-red-900"
+                      return "bg-[#ff0006]"
                     }
                     if(cost>380){
-                        return "bg-red-700"
+                        return "bg-[#ff0006]"
                     }
                   }
                   return(
