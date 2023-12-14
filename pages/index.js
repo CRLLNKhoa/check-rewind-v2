@@ -3,6 +3,7 @@ import MyHead from "../components/MyHead";
 import { dataSingleCost } from "@/pages/api/singleCost";
 import { useState } from "react";
 import { toast } from "react-toastify";
+import Ads from "@/components/Ads";
 
 export default function Home() {
   const [input, setInput] = useState({
@@ -27,6 +28,7 @@ export default function Home() {
         url="https://check-rewind.vercel.app/"
       />
       <main className="w-full bg-white min-h-screen flex mt-24 mb-10 flex-col">
+        <Ads />
         {/* NOTE search */}
         <section className="flex flex-col items-center mx-2">
           <div className="flex flex-col justify-center items-center">
