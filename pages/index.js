@@ -28,7 +28,7 @@ export default function Home() {
         url="https://check-rewind.vercel.app/"
       />
       <main className="w-full bg-white min-h-screen flex mt-24 mb-10 flex-col">
-        <Ads />
+        {/* <Ads /> */}
         {/* NOTE search */}
         <section className="flex flex-col items-center mx-2">
           <div className="flex flex-col justify-center items-center">
