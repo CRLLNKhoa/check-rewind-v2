@@ -10,6 +10,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Script from 'next/script';
 import GoToTop from "@/components/GoToTop";
 import { Analytics } from '@vercel/analytics/react';
+import Beta from "@/components/Beta";
 
 export default function App({ Component, pageProps }) {
   const [isLoading, setIsLoading] = useState(false);
@@ -56,6 +57,7 @@ export default function App({ Component, pageProps }) {
     {isLoading && <div className="nprogress-custom-parent"><div className="nprogress-custom-bar"/></div>}
     <Footer/>
     <GoToTop />
+    <Beta />
     </>
   ) 
 }
